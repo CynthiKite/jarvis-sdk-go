@@ -22,6 +22,7 @@ import (
 	"google.golang.org/grpc/metadata"
 
 	identitypb "github.com/indykite/jarvis-sdk-go/gen/indykite/identity/v1beta1"
+	identityv2 "github.com/indykite/jarvis-sdk-go/gen/indykite/identity/v1beta2"
 	api "github.com/indykite/jarvis-sdk-go/grpc"
 )
 
@@ -30,7 +31,8 @@ type Client struct {
 	closeHandler func() error
 
 	// The gRPC API client.
-	client identitypb.IdentityManagementAPIClient
+	client   identitypb.IdentityManagementAPIClient
+	clientv2 identityv2.IdentityManagementAPIClient
 
 	// The metadata to be sent with each request.
 	xMetadata metadata.MD
@@ -47,7 +49,8 @@ func NewClient(ctx context.Context, opts ...api.ClientOption) (*Client, error) {
 		closeHandler: connPool.Close,
 		xMetadata: metadata.Pairs("x-jarvis-client",
 			fmt.Sprintf("client/%s grpc/%s", versionClient, grpc.Version)),
-		client: identitypb.NewIdentityManagementAPIClient(connPool),
+		client:   identitypb.NewIdentityManagementAPIClient(connPool),
+		clientv2: identityv2.NewIdentityManagementAPIClient(connPool),
 	}
 	return c, nil
 }

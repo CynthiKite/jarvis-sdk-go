@@ -20,20 +20,38 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/indykite/jarvis-sdk-go/errors"
-	identitypb "github.com/indykite/jarvis-sdk-go/gen/indykite/identity/v1beta2"
+	identitypb "github.com/indykite/jarvis-sdk-go/gen/indykite/identity/v1beta1"
 )
 
-func (c *Client) CreateConsent(
+func (c *Client) CheckConsentChallenge(
 	ctx context.Context,
-	req *identitypb.CreateConsentRequest,
+	req *identitypb.CheckConsentChallengeRequest,
 	opts ...grpc.CallOption,
-) (*identitypb.CreateConsentResponse, error) {
+) (*identitypb.CheckConsentChallengeResponse, error) {
 	if err := req.Validate(); err != nil {
-		return nil, errors.NewInvalidArgumentErrorWithCause(err, "unable to call CreateConsent")
+		return nil, errors.NewInvalidArgumentErrorWithCause(err, "unable to call CheckConsentChallenge")
 	}
 
 	ctx = insertMetadata(ctx, c.xMetadata)
-	resp, err := c.clientv2.CreateConsent(ctx, req, opts...)
+	resp, err := c.client.CheckConsentChallenge(ctx, req, opts...)
+
+	if s := errors.FromError(err); s != nil {
+		return nil, s
+	}
+	return resp, nil
+}
+
+func (c *Client) CreateConsentVerifier(
+	ctx context.Context,
+	req *identitypb.CreateConsentVerifierRequest,
+	opts ...grpc.CallOption,
+) (*identitypb.CreateConsentVerifierResponse, error) {
+	if err := req.Validate(); err != nil {
+		return nil, errors.NewInvalidArgumentErrorWithCause(err, "unable to call CreateConsentVerifier")
+	}
+
+	ctx = insertMetadata(ctx, c.xMetadata)
+	resp, err := c.client.CreateConsentVerifier(ctx, req, opts...)
 
 	if s := errors.FromError(err); s != nil {
 		return nil, s

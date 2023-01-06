@@ -24,6 +24,7 @@ import (
 	"github.com/spf13/cobra"
 
 	identitypb "github.com/indykite/jarvis-sdk-go/gen/indykite/identity/v1beta1"
+	identityv2 "github.com/indykite/jarvis-sdk-go/gen/indykite/identity/v1beta2"
 )
 
 // planCmd represents the plan command
@@ -33,6 +34,33 @@ var consentCmd = &cobra.Command{
 	Long: `General commands for Consent
 
   This is a sample only.`,
+}
+
+// checkConsentChallengeCmd represents the patch command
+var createConsentCmd = &cobra.Command{
+	Use:   "create",
+	Short: "Create consent",
+	Run: func(cmd *cobra.Command, args []string) {
+		var piiProcessorID, piiPrincipalID string
+		fmt.Print("Enter PiiProcessor ID (OAuth2 App ID): ")
+		fmt.Scanln(&piiProcessorID)
+		fmt.Print("Enter PiiPrincipal ID (DigitalTwin ID): ")
+		fmt.Scanln(&piiPrincipalID)
+
+		resp, err := client.CreateConsent(
+			context.Background(),
+			&identityv2.CreateConsentRequest{
+				PiiProcessorId: piiProcessorID,
+				PiiPrincipalId: piiPrincipalID,
+				Properties:     []string{"email", "firstname"},
+			},
+			// retry.WithMax(2),
+		)
+		if err != nil {
+			log.Fatalf("failed to invoke operation on IndyKite Client %v", err)
+		}
+		fmt.Println(jsonp.Format(resp))
+	},
 }
 
 // checkConsentChallengeCmd represents the patch command
@@ -110,6 +138,7 @@ var createConsentVerifier = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(consentCmd)
+	consentCmd.AddCommand(createConsentCmd)
 	consentCmd.AddCommand(checkConsentChallengeCmd)
 	consentCmd.AddCommand(createConsentVerifier)
 }
