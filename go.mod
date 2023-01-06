@@ -15,6 +15,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/leodido/go-urn v1.2.1
 	github.com/lestrrat-go/jwx v1.2.25
+	github.com/lestrrat-go/jwx/v2 v2.0.8
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/multiformats/go-base36 v0.2.0
 	github.com/onsi/ginkgo/v2 v2.6.0
