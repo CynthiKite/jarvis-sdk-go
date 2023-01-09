@@ -20,7 +20,7 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/indykite/jarvis-sdk-go/errors"
-	identitypb "github.com/indykite/jarvis-sdk-go/gen/indykite/identity/v1beta1"
+	identitypb "github.com/indykite/jarvis-sdk-go/gen/indykite/identity/v1beta2"
 	objects "github.com/indykite/jarvis-sdk-go/gen/indykite/objects/v1beta1"
 )
 
@@ -73,10 +73,10 @@ func (c *Client) IsAuthorizedByStringExternalID(
 	opts ...grpc.CallOption,
 ) (*identitypb.IsAuthorizedResponse, error) {
 	return c.IsAuthorizedWithRawRequest(ctx, &identitypb.IsAuthorizedRequest{
-		Subject: &identitypb.DigitalTwinIdentifier{Filter: &identitypb.DigitalTwinIdentifier_Property{
-			Property: &identitypb.Property{
-				Definition: &identitypb.PropertyDefinition{Property: externalIDProperty},
-				Value:      &identitypb.Property_ObjectValue{ObjectValue: objects.String(externalID)},
+		Subject: &identitypb.DigitalTwinIdentifier{Filter: &identitypb.DigitalTwinIdentifier_PropertyFilter{
+			PropertyFilter: &identitypb.PropertyFilter{
+				Type:  externalIDProperty,
+				Value: objects.String(externalID),
 			},
 		}},
 		Actions:   actions,
@@ -94,10 +94,10 @@ func (c *Client) IsAuthorizedByNumericExternalID(
 	opts ...grpc.CallOption,
 ) (*identitypb.IsAuthorizedResponse, error) {
 	return c.IsAuthorizedWithRawRequest(ctx, &identitypb.IsAuthorizedRequest{
-		Subject: &identitypb.DigitalTwinIdentifier{Filter: &identitypb.DigitalTwinIdentifier_Property{
-			Property: &identitypb.Property{
-				Definition: &identitypb.PropertyDefinition{Property: externalIDProperty},
-				Value:      &identitypb.Property_ObjectValue{ObjectValue: objects.Int64(externalID)},
+		Subject: &identitypb.DigitalTwinIdentifier{Filter: &identitypb.DigitalTwinIdentifier_PropertyFilter{
+			PropertyFilter: &identitypb.PropertyFilter{
+				Type:  externalIDProperty,
+				Value: objects.Int64(externalID),
 			},
 		}},
 		Actions:   actions,

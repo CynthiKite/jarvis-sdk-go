@@ -21,10 +21,10 @@ import (
 	"github.com/golang/mock/gomock"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	identitypb "github.com/indykite/jarvis-sdk-go/gen/indykite/identity/v1beta1"
+	identitypb "github.com/indykite/jarvis-sdk-go/gen/indykite/identity/v1beta2"
 	objects "github.com/indykite/jarvis-sdk-go/gen/indykite/objects/v1beta1"
 	"github.com/indykite/jarvis-sdk-go/identity"
-	midentity "github.com/indykite/jarvis-sdk-go/test/identity/v1beta1"
+	midentity "github.com/indykite/jarvis-sdk-go/test/identity/v1beta2"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -38,7 +38,7 @@ var _ = Describe("Invitation", func() {
 		client, err := identity.NewTestClient(mockClient)
 		Ω(err).To(Succeed())
 
-		tenantID, err := identity.ParseUUID("696e6479-6b69-4465-8000-030100000002")
+		tenantID := "696e6479-6b69-4465-8000-030100000002"
 		Ω(err).To(Succeed())
 
 		now := time.Now().Add(time.Minute)
