@@ -20,13 +20,6 @@ Golang Library packages for [IndyKite Platform](https://indykite.com) Client SDK
 import "github.com/indykite/jarvis-sdk-go"
 ```
 
-In order to access to the platform you must obtain an API key first.
-This key can be obtained either from the [Admin Console](https://console.indykite.id)
-or request one from your point of contact at IndyKite.
-
-## Requirements
-
-Go 1.19
 
 ## Used terminology
 
@@ -50,17 +43,20 @@ and to find out how to use the entire platform for your project.
 
 ## Getting Started
 
-### Trial
+### Requirements
 
-For a trial please contact [IndyKite](https://www.indykite.com/contact-us)
-to setup and configure the platform.
+* Go 1.19
+* AppAgent credentials and Service account credentials. These are obtained when setting up the Admin Console. 
 
-## Initial settings
+### Install
 
-1. You need to have a configuration json file to be able to use the Jarvis Proto SDK. You can get it from your
-   Indykite contact or from Indykite console if you have access to it.
+```go
+go get -u github.com/indykite/jarvis-sdk-go
+```
 
-   Example configuration file:
+### Configure the development environment
+You need to have a configuration JSON file (AppAgent credentials or Service account credentials) to be able to use the Jarvis Proto SDK.
+Example configuration file:
 
 ```json
 {
@@ -91,8 +87,7 @@ Conditionally optional parameters:
 - defaultTenantId
 - endpoint
 
-1. You have two choices to set up the necessary credentials. You either pass the json to the `INDYKITE_APPLICATION_CREDENTIALS`
-   environment variable or set the `INDYKITE_APPLICATION_CREDENTIALS_FILE` environment variable to the configuration file's path.
+There are two ways to set up the necessary credentials. You either pass the JSON configuration file (AppAgent credentials or Service account credentials) to the `INDYKITE_APPLICATION_CREDENTIALS` environment variable or set the `INDYKITE_APPLICATION_CREDENTIALS_FILE` environment variable to the configuration file's path.
 
    1. on Linux and OSX
 
@@ -118,24 +113,7 @@ Conditionally optional parameters:
       setex INDYKITE_APPLICATION_CREDENTIALS_FILE "C:\Users\xx\Documents\configuration.json"
       ```
 
-## SDK Development
-
-Commit message follows
-[commit guidelines](./doc/guides/commit-message.md#commit-message-guidelines)
-
-## Roadmap
-
-Checkout our roadmap on our
-[issues page](https://github.com/indykite/jarvis-sdk-go/issues)
-
-## Contributing
-
-[Contribution guidelines for this project](contributing.md)
-
-## Support, Feedback, Connect with other developers
-
-We'd love to have you connect with us or other community developers over at
-[IndyKite.one](https://indykite.one)
+## Support and Feedback
 
 Feel free to file a bug, submit an issue or give us feedback on our
 [issues page](https://github.com/indykite/jarvis-sdk-go/issues)
@@ -148,13 +126,17 @@ Feel free to file a bug, submit an issue or give us feedback on our
 
 [Changelog](CHANGELOG.md)
 
-## Contributers / Acknowledgements
+## Contributors / Acknowledgements
 
-Coming Soon!
+Coming soon!
 
 ## What is IndyKite
 
-IndyKite is a cloud identity platform built to secure and manage human & non-person (IoT) identities and their data. Based on open source standards, the cloud platform gives developers the ability to secure data and embed identity controls into their Web 3.0 applications. Empowering the world’s 23 million developers without the need to involve security and identity specialists.
+IndyKite is building the identity platform for Web 3.0.
+
+IndyKite’s decentralized Identity Platform unlocks contextual insights from identity data to enable businesses to realize greater ROI.. With products that securely manage human, IoT,and machine identity, the IndyKite Identity Platform leverages machine learning to deliver context-aware authorization, knowledge driven decisions and risk analytics.
+
+Built on a knowledge graph data model, IndyKite enables developers with flexible APIs through a growing open-source ecosystem.
 
 ## License
 
